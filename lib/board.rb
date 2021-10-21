@@ -5,6 +5,7 @@ module Mastermind
     def initialize()
       @board = Array.new(10, [])
     end
+  end
 
 
 end
