@@ -1,11 +1,9 @@
 module Mastermind
-  class Board
-    attr_reader :board
-    attr_writer :board
+  class Secret
     attr_reader :secret
 
     def initialize()
-      @board = []
+      @board = Array.new(10, [])
       @secret = []
     end
 
