@@ -3,7 +3,6 @@ module Mastermind
     attr_reader :secret
 
     def initialize()
-      @board = Array.new(10, [])
       @secret = []
     end
 
