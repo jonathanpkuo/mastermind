@@ -25,9 +25,6 @@ module Mastermind
       feedback[int] = "There are #{cor_num} correct numbers and #{cor_pla} correct placements."
     end
 
-    def fuck_you(x, y)
-      puts "#{x} fucks #{y}"
-    end
   end
 
 end
