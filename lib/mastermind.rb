@@ -25,12 +25,18 @@ module Mastermind
     end
 
     def game_play_loop()
-      
+      scode.scode = scode.populate_secret()
+      while ( is_over == false || turn < 11 ) do
       # Display board
+      draw_board()
       # Take input
+      @input = fetch_input()
       # Check and formulate responses
+      responses.bump_data(@turn, scode.scode, @input)
       # Repeat.
+      turn += 1
       # Turn > 9 = lose; successfully guess = win.
+      end
 
     end
 
@@ -49,7 +55,7 @@ module Mastermind
       end
     end
 
-    def validator()
+    def fetch_input()
       buffer = []
       while buffer.length < 4 do
         input = gets.chomp
@@ -70,3 +76,5 @@ module Mastermind
 
   end
 end
+
+game = Mastermind::Game.new()
