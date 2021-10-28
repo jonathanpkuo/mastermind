@@ -21,8 +21,14 @@ module Mastermind
     def bump_data(int, arr_1, arr_2)
       cor_num = c_num(arr_1, arr_2)
       cor_pla = c_place(arr_1, arr_2)
-      # feedback[turn] = "There are #{c_num(code_array, input_array)} correct numbers and #{c_place(code_array, input_array)} correct placements."
-      feedback[int] = "There are #{cor_num} correct numbers and #{cor_pla} correct placements."
+      if ( cor_num == 4 && cor_pla == 4 )
+        # 
+        feedback[int] = "You have guessed the code! You win!"
+        game.is_over = true
+      else
+        # feedback[turn] = "There are #{c_num(code_array, input_array)} correct numbers and #{c_place(code_array, input_array)} correct placements."
+        feedback[int] = "There are #{cor_num} correct numbers and #{cor_pla} correct placements."
+      end
     end
 
   end
