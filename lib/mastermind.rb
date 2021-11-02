@@ -34,7 +34,7 @@ module Mastermind
         # Take input
         input = fetch_input()
         # Check and formulate responses
-        responses.bump_data(@@turn, @code, input)
+        feedback.bump_data(@@turn, @code, input)
         # Repeat.
         turn += 1
         # Turn > 9 = lose; successfully guess = win.
