@@ -12,9 +12,6 @@ module Mastermind
     end
 
     def wipe_secret(array)
-      # while array.length > 0 do
-      #   array.pop()
-      # end
       array.pop(4)
       return array
     end
