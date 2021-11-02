@@ -22,19 +22,19 @@ module Mastermind
       @feedback = Feedback.new()
       # @display = Display.new()
       @is_over = false
-      @turn = 0
+      @@turn = 0
       @code = []
     end
 
     def game_play_loop()
-      @code = scode.populate_secret()
+      @code = secret.populate_secret(@code)
       while ( is_over == false || turn < 11 ) do
         # Display board
         draw_board()
         # Take input
         input = fetch_input()
         # Check and formulate responses
-        responses.bump_data(@turn, scode.scode, @input)
+        responses.bump_data(@@turn, @code, input)
         # Repeat.
         turn += 1
         # Turn > 9 = lose; successfully guess = win.
