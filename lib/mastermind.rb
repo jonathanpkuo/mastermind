@@ -47,12 +47,12 @@ module Mastermind
       feedback.feedback
 
       i = 0
-      if gboard.board.length != responses.feedback.length
+      if game_board.board.length != feedback.feedback.length
         return "Array Mismatch Error"
       end
 
-      while (i < gboard.board.length) do
-        puts "#{gboard.board[i]} : #{responses.feedback[i]}"
+      while (i < game_board.board.length) do
+        puts "#{game_board.board[i]} : #{feedback.feedback[i]}"
         i += 1
       end
     end
