@@ -1,9 +1,7 @@
 module Mastermind
   class Secret
-    attr_reader :scode
 
     def initialize()
-      @scode = []
     end
 
     def populate_secret(array)
