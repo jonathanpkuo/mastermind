@@ -7,35 +7,37 @@ module Mastermind
   class Game
     attr_reader :is_over
     attr_reader :turn
-    attr_reader :scode
-    attr_reader :gboard
-    attr_reader :responses
-    attr_reader :display
-    attr_reader :input
+    attr_reader :secret
+    attr_reader :game_board
+    attr_reader :feedback
+    # attr_reader :display
+    # attr_reader :input
+
+    attr_reader :code
+    attr_writer :code
 
     def initialize
-      @scode= Secret.new()
-      @gboard = Board.new()
-      @responses = Feedback.new()
+      @secret = Secret.new()
+      @game_board = Board.new()
+      @feedback = Feedback.new()
       # @display = Display.new()
-      @input = []
       @is_over = false
       @turn = 0
-      @buffer = []
+      @code = []
     end
 
     def game_play_loop()
-      scode.scode = scode.populate_secret()
+      @code = scode.populate_secret()
       while ( is_over == false || turn < 11 ) do
-      # Display board
-      draw_board()
-      # Take input
-      @input = fetch_input()
-      # Check and formulate responses
-      responses.bump_data(@turn, scode.scode, @input)
-      # Repeat.
-      turn += 1
-      # Turn > 9 = lose; successfully guess = win.
+        # Display board
+        draw_board()
+        # Take input
+        input = fetch_input()
+        # Check and formulate responses
+        responses.bump_data(@turn, scode.scode, @input)
+        # Repeat.
+        turn += 1
+        # Turn > 9 = lose; successfully guess = win.
       end
 
     end
