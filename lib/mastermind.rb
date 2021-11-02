@@ -43,8 +43,8 @@ module Mastermind
     end
 
     def draw_board()
-      gboard.board
-      responses.feedback
+      game_board.board
+      feedback.feedback
 
       i = 0
       if gboard.board.length != responses.feedback.length
