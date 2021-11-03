@@ -34,9 +34,10 @@ module Mastermind
         # Take input
         input = fetch_input()
         # Check and formulate responses
+        game_board.board[@@turn] = input
         feedback.bump_data(@@turn, @code, input)
         # Repeat.
-        turn += 1
+        @@turn += 1
         # Turn > 9 = lose; successfully guess = win.
       end
 
@@ -57,20 +58,57 @@ module Mastermind
       end
     end
 
+    # Need to rewrite the input fetch.
     def fetch_input()
       buffer = []
       while buffer.length < 4 do
+        puts "Please input choice"
         input = gets.chomp
         if input.downcase == "b" && buffer.length > 0
           buffer.pop()
-        end
-        while ( input.to_i < 0 && input.to_i > 9 )
-          puts "Input Invalid (Move out of scope)."
-          input = gets.chomp
+          puts buffer
+        else
+          while ( input.to_i < 0 && input.to_i > 9 )
+            puts "Input Invalid (Move out of scope)."
+            input = gets.chomp
+          end
         end
         if buffer.length < 4
           buffer.push(input.to_i)
         end
+        puts "Current input is #{buffer}."
+      end
+      return buffer
+    end
+
+    def get_input()
+      buffer = []
+      while buffer.length < 4
+        puts "Please input choice"
+        input = gets.chomp
+    
+        while ( input.downcase == "b" && buffer.length == 0 )
+          puts "Cannot delete, please try again."
+          input = gets.chomp
+        end
+
+        while ( input.downcase == "b" && buffer.length > 0 )
+          buffer.pop()
+          puts "Current input is #{buffer}."
+          puts "Please input choice"
+          input = gets.chomp
+        end
+
+        while ( input.to_i < 0 && input.to_i > 9 )
+          puts "Input Invalid (Move out of scope)."
+          puts "Please input choice"
+          input = gets.chomp
+        end
+        
+        if buffer.length < 4
+          buffer.push(input.to_i)
+        end
+        puts "Current input is #{buffer}."
       end
       return buffer
     end
