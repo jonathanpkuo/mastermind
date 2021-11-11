@@ -6,6 +6,4 @@ module Mastermind
       @board = Array.new(10, [])
     end
   end
-
-
 end
