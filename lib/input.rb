@@ -19,12 +19,17 @@ module Mastermind
       end
       puts "Please input choice."
       input = gets.chomp
+      # puts "#{input}, #{input.downcase}, #{input.to_i}"
       downcased = proc { |x| x.downcase == "b"}
       scope = proc { |x| x.to_i < 0 || x.to_i > 9 }
+      length = proc { |x| x.length < 1 }
 
       case input
       when downcased
         backspace(array)
+        input_loop(array)
+      when length
+        puts "Invalid input."
         input_loop(array)
       when scope
         puts "Input out of scope."
