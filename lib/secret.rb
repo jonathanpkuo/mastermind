@@ -6,9 +6,11 @@ module Mastermind
 
     def populate_secret(array)
       until array.length == 4 do
-        array.push( (rand * 10).to_i )
+        new = ( rand * 10 ).to_i
+        if !( array.any? { |x| x == new })
+          array.push(new)
+        end
       end
-      return array
     end
 
     def wipe_secret(array)
