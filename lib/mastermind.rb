@@ -1,6 +1,7 @@
 require_relative 'secret.rb'
 require_relative 'board.rb'
 require_relative 'feedback.rb'
+require_relative 'input.rb'
 
 module Mastermind
 
@@ -10,6 +11,7 @@ module Mastermind
     attr_reader :secret
     attr_reader :game_board
     attr_reader :feedback
+    attr_reader :input_manager
     # attr_reader :display
     # attr_reader :input
 
@@ -20,6 +22,7 @@ module Mastermind
       @secret = Secret.new()
       @game_board = Board.new()
       @feedback = Feedback.new()
+      @input_manager = Input_Manager.new()
       # @display = Display.new()
       @is_over = false
       @@turn = 0
@@ -28,17 +31,24 @@ module Mastermind
 
     def game_play_loop()
       @code = secret.populate_secret(@code)
-      while ( is_over == false || turn < 11 ) do
+      while ( @is_over == false && @@turn < 10 ) do
         # Display board
+        puts "Turn: #{@@turn + 1}"
+        puts "Game over!" if @is_over == true
         draw_board()
         # Take input
-        input = fetch_input()
+        input = input_manager.input_loop([])
         # Check and formulate responses
         game_board.board[@@turn] = input
         feedback.bump_data(@@turn, @code, input)
         # Repeat.
         @@turn += 1
         # Turn > 9 = lose; successfully guess = win.
+        if @@turn > 9 
+          @is_over == true
+          puts "Game Over: You Lose!"
+          draw_board()
+        end
       end
 
     end
@@ -57,64 +67,8 @@ module Mastermind
         i += 1
       end
     end
-
-    # Need to rewrite the input fetch.
-    def fetch_input()
-      buffer = []
-      while buffer.length < 4 do
-        puts "Please input choice"
-        input = gets.chomp
-        if input.downcase == "b" && buffer.length > 0
-          buffer.pop()
-          puts buffer
-        else
-          while ( input.to_i < 0 && input.to_i > 9 )
-            puts "Input Invalid (Move out of scope)."
-            input = gets.chomp
-          end
-        end
-        if buffer.length < 4
-          buffer.push(input.to_i)
-        end
-        puts "Current input is #{buffer}."
-      end
-      return buffer
-    end
-
-    def get_input()
-      buffer = []
-      while buffer.length < 4
-        puts "Please input choice"
-        input = gets.chomp
     
-        while ( input.downcase == "b" && buffer.length == 0 )
-          puts "Cannot delete, please try again."
-          input = gets.chomp
-        end
-
-        while ( input.downcase == "b" && buffer.length > 0 )
-          buffer.pop()
-          puts "Current input is #{buffer}."
-          puts "Please input choice"
-          input = gets.chomp
-        end
-
-        while ( input.to_i < 0 && input.to_i > 9 )
-          puts "Input Invalid (Move out of scope)."
-          puts "Please input choice"
-          input = gets.chomp
-        end
-        
-        if buffer.length < 4
-          buffer.push(input.to_i)
-        end
-        puts "Current input is #{buffer}."
-      end
-      return buffer
-    end
-
-
   end
 end
 
-game = Mastermind::Game.new()
+# game = Mastermind::Game.new()
