@@ -21,7 +21,7 @@ module Mastermind
     def bump_data(int, arr_1, arr_2)
       cor_num = c_num(arr_1, arr_2)
       cor_pla = c_place(arr_1, arr_2)
-      if ( cor_num == 4 && cor_pla == 4 )
+      if ( cor_pla == 4 )
         # 
         feedback[int] = "You have guessed the code! You win!"
         game.is_over = true
