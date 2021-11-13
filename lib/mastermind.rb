@@ -12,8 +12,6 @@ module Mastermind
     attr_reader :game_board
     attr_reader :feedback
     attr_reader :input_manager
-    # attr_reader :display
-    # attr_reader :input
 
     attr_reader :code
     attr_writer :code
