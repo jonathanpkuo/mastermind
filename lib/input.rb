@@ -1,14 +1,7 @@
 module Mastermind
   class Input_Manager
     def initialize()
-      # buffer = []
     end
-
-    # def input_function
-    #   # init_buffer()
-
-    #   input_loop(buffer)
-    # end
 
     def input_loop(array)
       if array.length == 4
@@ -19,7 +12,6 @@ module Mastermind
       end
       puts "Please input choice."
       input = gets.chomp
-      # puts "#{input}, #{input.downcase}, #{input.to_i}"
       downcased = proc { |x| x.downcase == "b"}
       scope = proc { |x| x.to_i < 0 || x.to_i > 9 }
       length = proc { |x| x.length < 1 }
@@ -40,11 +32,7 @@ module Mastermind
       end
       
     end 
-
-    # def init_buffer()
-    #   buffer = Array.new()
-    # end
-
+    
     def backspace(array)
       if array.length > 0
         array.pop()
