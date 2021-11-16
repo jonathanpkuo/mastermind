@@ -27,8 +27,12 @@ module Mastermind
       @code = []
     end
 
-    def game_play_loop()
-      @code = secret.populate_secret(@code)
+    # Mode 0 = normal single player (AI picks code), 1 = pvp (player picks code)
+    def game_play_loop(mode = 0)
+      if mode == 0
+        @code = secret.populate_secret(@code)
+      elsif mode == 1
+        @code = @input_manager.input_loop([], mode)
       while ( @is_over == false && @@turn < 10 ) do
         # Display board
         puts "Turn: #{@@turn + 1}"
