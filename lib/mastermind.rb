@@ -26,12 +26,23 @@ module Mastermind
       @is_over = false
       @@turn = 0
       @code = []
+      # main_menu()
+    end
+
+    def main_menu()
+      puts "Select game mode : "
+      puts "(1) - Single Player"
+      puts "(2) - PvP"
+      puts "(3) - Single Player (Player is code master) *WIP*"
+      puts "(4) - Exit"
+      game_play_loop(@input_manager.menu_input)
     end
 
     # Mode 0 = normal single player (AI picks code), 1 = pvp (player picks code)
     def game_play_loop(mode = 0)
       if mode == 0
         @code = secret.populate_secret(@code)
+        puts "#{@code}."
       elsif mode == 1
         @code = @input_manager.input_loop([], mode)
       end
@@ -47,6 +58,7 @@ module Mastermind
         @is_over = feedback.bump_data(@@turn, @code, input)
         if @is_over == true
           draw_board()
+          main_menu()
         end
         # Repeat.
         @@turn += 1
@@ -55,6 +67,7 @@ module Mastermind
           @is_over == true
           puts "Game Over: You Lose!"
           draw_board()
+          main_menu()
         end
       end
 

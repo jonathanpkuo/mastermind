@@ -4,7 +4,21 @@ module Mastermind
     end
 
     def menu_input()
-
+      input = gets.chomp.to_i
+      case input
+      when 1
+        return 0
+      when 2 
+        return 1
+      when 3
+        puts "Mode incomplete, please select another option."
+        menu_input()
+      when 4
+        exit
+      else
+        puts "Invalid entry"
+        menu_input()
+      end
     end
 
     def input_loop(array, mode = 0)
@@ -20,10 +34,10 @@ module Mastermind
       puts "Please input choice."
       input = gets.chomp
       puts "Your input is: #{input}."
-      downcased = proc { |x| x.downcase == "b"}
+      downcased = proc { |x| x.downcase == "b" }
       scope = proc { |x| x.to_i < 0 || x.to_i > 9 }
       length = proc { |x| x.length < 1 }
-      duplicate = proc { |x| array.any?(x.to_i) && mode == 1}
+      duplicate = proc { |x| array.any?(x.to_i) && mode == 1 }
       # duplicate = proc { |x| array.any?(x) }
 
       case input
