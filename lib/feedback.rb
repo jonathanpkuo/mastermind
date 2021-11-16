@@ -28,6 +28,7 @@ module Mastermind
       else
         # feedback[turn] = "There are #{c_num(code_array, input_array)} correct numbers and #{c_place(code_array, input_array)} correct placements."
         feedback[int] = "There are #{cor_num} correct numbers and #{cor_pla} correct placements."
+        return false
       end
     end
 
