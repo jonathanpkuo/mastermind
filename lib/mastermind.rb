@@ -7,6 +7,7 @@ module Mastermind
 
   class Game
     attr_reader :is_over
+    attr_writer :is_over
     attr_reader :turn
     attr_reader :secret
     attr_reader :game_board
@@ -43,7 +44,10 @@ module Mastermind
         input = input_manager.input_loop([])
         # Check and formulate responses
         game_board.board[@@turn] = input
-        feedback.bump_data(@@turn, @code, input)
+        @is_over = feedback.bump_data(@@turn, @code, input)
+        if @is_over == true
+          draw_board()
+        end
         # Repeat.
         @@turn += 1
         # Turn > 9 = lose; successfully guess = win.

@@ -24,7 +24,7 @@ module Mastermind
       if ( cor_pla == 4 )
         # 
         feedback[int] = "You have guessed the code! You win!"
-        game.is_over = true
+        return true
       else
         # feedback[turn] = "There are #{c_num(code_array, input_array)} correct numbers and #{c_place(code_array, input_array)} correct placements."
         feedback[int] = "There are #{cor_num} correct numbers and #{cor_pla} correct placements."
