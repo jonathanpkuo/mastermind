@@ -26,7 +26,7 @@ module Mastermind
       @is_over = false
       @@turn = 0
       @code = []
-      # main_menu()
+      main_menu()
     end
 
     def main_menu()
@@ -42,7 +42,6 @@ module Mastermind
     def game_play_loop(mode = 0)
       if mode == 0
         @code = secret.populate_secret(@code)
-        puts "#{@code}."
       elsif mode == 1
         @code = @input_manager.input_loop([], mode)
       end
