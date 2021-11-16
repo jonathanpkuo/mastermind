@@ -33,6 +33,7 @@ module Mastermind
         @code = secret.populate_secret(@code)
       elsif mode == 1
         @code = @input_manager.input_loop([], mode)
+      end
       while ( @is_over == false && @@turn < 10 ) do
         # Display board
         puts "Turn: #{@@turn + 1}"
