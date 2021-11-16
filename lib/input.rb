@@ -37,8 +37,8 @@ module Mastermind
       downcased = proc { |x| x.downcase == "b" }
       scope = proc { |x| x.to_i < 0 || x.to_i > 9 }
       length = proc { |x| x.length < 1 }
+      # duplicate proc is present and active only during code generation, as duplicate numbers are not permitted.
       duplicate = proc { |x| array.any?(x.to_i) && mode == 1 }
-      # duplicate = proc { |x| array.any?(x) }
 
       case input
       when downcased
@@ -60,6 +60,7 @@ module Mastermind
       
     end 
     
+    # backspace function is designed to allow player(s) to go back in their moves if they entered the wrong key initially (does not allow for the 4th character to be undone).
     def backspace(array)
       if array.length > 0
         array.pop()
@@ -68,6 +69,7 @@ module Mastermind
       end
     end
 
+    # gattai combines the current input into the active input buffer
     def gattai(array, int)
       if array.length < 4
         array.push(int)
