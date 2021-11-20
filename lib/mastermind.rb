@@ -2,6 +2,7 @@ require_relative 'secret.rb'
 require_relative 'board.rb'
 require_relative 'feedback.rb'
 require_relative 'input.rb'
+require_relative 'solver.rb'
 
 module Mastermind
 
@@ -22,6 +23,7 @@ module Mastermind
       @game_board = Board.new()
       @feedback = Feedback.new()
       @input_manager = Input_Manager.new()
+      @solver = Solver.new()
       @is_over = false
       @@turn = 0
       @code = []
