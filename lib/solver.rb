@@ -13,7 +13,7 @@ module Mastermind
 
     def shift_one(array)
       no_shift = find_confirmed(array)  #unneccessary?
-      
+
       
 
     end
@@ -39,7 +39,6 @@ module Mastermind
 
     def initialize()
       @value = 1
-      @position = 0
       @movable = true
       @frozen = false
       @set = false
