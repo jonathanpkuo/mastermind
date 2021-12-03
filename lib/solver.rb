@@ -12,12 +12,19 @@ module Mastermind
     end
 
     def shift_one(array)
-      no_shift = find_confirmed(array)  #unneccessary?
-
-      
+      no_shift = find_confirmed(array)  # Is this portion unneccessary?
+      holding_cells = []
+      i = 0
+      while array.any? { |x| x.can_move? == false } do
+        if array[array.length - (1 + i))].can_move? == false
+          holding_cells.push(array.delete_at(array.length - (1 + i)))
+        end
+        i += 1
+      end
 
     end
 
+    #Do we need this?
     def find_confirmed(array)
       temp = Array.new()
       array.each_with_index do | x, index |
