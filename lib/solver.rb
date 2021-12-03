@@ -2,7 +2,7 @@ module Mastermind
   class Solver
     def initialize()
       @shift = false
-      @guesses = Array.new()
+      @guesses = populate_guesses(Array.new())
     end
 
     def solution_algo(array_board, turn, num_cor, num_pla)
@@ -16,7 +16,7 @@ module Mastermind
       holding_cells = []
       i = 0
       while array.any? { |x| x.can_move? == false } do
-        if array[array.length - (1 + i))].can_move? == false
+        if array[array.length - (1 + i)].can_move? == false
           holding_cells.push(array.delete_at(array.length - (1 + i)))
         end
         i += 1
