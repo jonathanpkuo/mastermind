@@ -30,19 +30,44 @@ module Mastermind
     end
 
     def manipulate_guess(index, action)
+      case action
+      when "freeze"
+        @guesses[index].flip_freeze
+      when "lock"
+        @guesses[index].flip_lock
+      when "increment"
+        @guesses[index].increment
+      when "shift"
+        shift_one(@guesses)
+      end
 
     end
 
     def shift_one(array)
-      no_shift = find_confirmed(array)  # Is this portion unneccessary?
       holding_cells = []
       i = 0
+      #temporarily removes any frozen values
       while array.any? { |x| x.can_move? == false } do
+        array.each do |x|
+          if x.can_move? == false 
+            puts x
+          end
+        end
         if array[array.length - (1 + i)].can_move? == false
-          holding_cells.push(array.delete_at(array.length - (1 + i)))
+          holding_cells[array.length - (1 + i)] = array.delete_at(array.length - (1 + i))
         end
         i += 1
       end
+      array[(array.length - 1)] = array.shift()
+      # moves values from temporary array back to main array.
+      j = 0
+      while holding_cells.any? { |x| x != nil} do
+        if holding_cells[j] != nil
+          array.insert(j, holding_cells[j])
+        end
+        j += 1
+      end
+      return array
 
     end
 
