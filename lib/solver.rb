@@ -10,6 +10,22 @@ module Mastermind
       
 
     end
+    
+    def test_controls
+
+
+    end
+
+    def show_guesses()
+      for x in @guesses do
+        puts x
+        puts "@frozen is: #{x.frozen}"
+        puts "@movable is: #{x.can_move?}"
+        puts "@value is: #{x.value?}"
+
+      end
+    end
+
 
     def shift_one(array)
       no_shift = find_confirmed(array)  # Is this portion unneccessary?
@@ -77,6 +93,10 @@ module Mastermind
 
     def can_move?()
       return @movable
+    end
+
+    def value?
+      return @value
     end
 
     def increment()
