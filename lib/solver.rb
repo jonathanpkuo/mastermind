@@ -11,21 +11,27 @@ module Mastermind
 
     end
     
-    def test_controls
-
-
+    #TESTING CONTROLS
+    def assemble_values
+      temp = []
+      for x in @guesses do
+        temp.push(x.value?)
+      end
+      return temp
     end
 
     def show_guesses()
       for x in @guesses do
         puts x
-        puts "@frozen is: #{x.frozen}"
+        puts "@frozen is: #{x.frozen?}"
         puts "@movable is: #{x.can_move?}"
         puts "@value is: #{x.value?}"
-
       end
     end
 
+    def manipulate_guess(index, action)
+
+    end
 
     def shift_one(array)
       no_shift = find_confirmed(array)  # Is this portion unneccessary?
