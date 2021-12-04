@@ -19,7 +19,7 @@ module Mastermind
     def show_guesses()
       for x in @guesses do
         puts x
-        puts "@frozen is: #{x.frozen}"
+        puts "@frozen is: #{x.frozen?}"
         puts "@movable is: #{x.can_move?}"
         puts "@value is: #{x.value?}"
 
