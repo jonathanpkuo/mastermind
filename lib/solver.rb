@@ -67,22 +67,22 @@ module Mastermind
       @set = false
     end
 
-    def freeze()
-      @frozen = true
+    def flip_freeze
+      if @frozen == true
+        @frozen = false
+      else
+        @frozen = true
+      end
     end
 
-    def unfreeze()
-      @frozen = false
+    def flip_lock
+      if @movable == true
+        @movable = false
+      else 
+        @movable = true
+      end
     end
-
-    def unlock()
-      @movable = true
-    end
-
-    def lock()
-      @movable = false
-    end
-
+  
     def frozen?()
       return @frozen
     end
