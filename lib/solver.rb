@@ -5,14 +5,17 @@ module Mastermind
       @guesses = populate_guesses(Array.new())
     end
 
-    def solution_algo(array_board, turn, num_cor, num_pla)
-
+    def solution_algo(turn, feedback)
+      # Take feedback[turn] 
+      temp = feedback.gsub(/[^\s\d]/, "").split
+      num_cor = temp[0].to_i
+      pla_cor = temp[1].to_i
       
 
     end
     
     #TESTING CONTROLS
-    def assemble_values
+    def assemble_values # Takes values from the guess objects and assembles them in an array for ease of use.
       temp = []
       for x in @guesses do
         temp.push(x.value?)
@@ -44,7 +47,7 @@ module Mastermind
     end
 
     def shift_one(array)
-      holding_cells = []
+      holding_cells = Array.new(4)
       i = 0
       #temporarily removes any frozen values
       while array.any? { |x| x.can_move? == false } do
@@ -58,6 +61,7 @@ module Mastermind
         end
         i += 1
       end
+      # Conducts the shift with the remaining values.
       array[(array.length - 1)] = array.shift()
       # moves values from temporary array back to main array.
       j = 0
@@ -80,6 +84,7 @@ module Mastermind
       return temp
     end
 
+    # Fills array with guess objecets (Guesstimates)
     def populate_guesses(array)
       until array.length == 4
         array.push(Guesstimate.new())
