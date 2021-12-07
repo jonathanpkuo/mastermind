@@ -6,12 +6,19 @@ module Mastermind
     end
 
     def solution_algo(turn, feedback)
+      if turn == 0
+        input = assemble_values
+        return input
+      end
       # Take feedback[turn] 
       temp = feedback.gsub(/[^\s\d]/, "").split
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
+      if num_cor > 
       
-
+      
+      input = assemble_values
+      return input
     end
     
     #TESTING CONTROLS
@@ -30,6 +37,27 @@ module Mastermind
         puts "@movable is: #{x.can_move?}"
         puts "@value is: #{x.value?}"
       end
+    end
+    
+    def count_guesses(qualifier)
+      counter = 0
+      @guesses.each do |x|
+        case qualifier
+        when "frozen"
+          if x.frozen? == true
+            counter += 1
+          end
+        when "movable"
+          if x.movable? == true
+            counter += 1
+          end
+        when "confirmed"
+          if x.confirmed? == true
+            counter += 1
+          end
+        end
+      end
+        
     end
 
     def manipulate_guess(index, action)
@@ -125,6 +153,10 @@ module Mastermind
 
     def confirm()
       @set = true
+    end
+
+    def confirmed?
+      return @set
     end
 
     def can_move?()
