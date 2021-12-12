@@ -14,9 +14,13 @@ module Mastermind
       temp = feedback.gsub(/[^\s\d]/, "").split
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
-      if num_cor > 
-      
-      
+      # Check if number of correct is greater than the number currently "frozen (non-incrementing)"
+      if num_cor > count_guesses("frozen")
+        # Freeze the first non-frozen entity.
+      end
+      if pla_cor > count_guesses("confirmed")
+        # Lock the first non-confirmed entity. (Lowest value?)
+      end
       input = assemble_values
       return input
     end
@@ -57,7 +61,7 @@ module Mastermind
           end
         end
       end
-        
+      return counter
     end
 
     def manipulate_guess(index, action)
