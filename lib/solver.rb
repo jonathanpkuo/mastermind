@@ -15,12 +15,42 @@ module Mastermind
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
       # Check if number of correct is greater than the number currently "frozen (non-incrementing)"
+      puts num_cor
+      puts count_guesses("frozen")
       if num_cor > count_guesses("frozen")
         # Freeze the first non-frozen entity.
+        @guesses.each do |x| 
+          if x.frozen? != true
+            x.flip_freeze
+            break
+          end
+        end
       end
       if pla_cor > count_guesses("confirmed")
         # Lock the first non-confirmed entity. (Lowest value?)
+        @guesses.each do |x|
+          if x.confirmed? != true
+            x.flip_lock
+            break
+          end
+        end
+      elsif pla_cor < count_guesses("confirmed")
+        # Unlock the latest non-confirmed entity. (Highest value?)
+        @guesses.reverse_each do |x|
+          if x.confirmed? == true
+            x.flip_lock
+            break
+          end
+        end
       end
+      # Increment values
+      @guesses.each do |x|
+        if x.frozen? != true
+          x.increment
+        end
+      end
+      # Shift one
+      @guesses = shift_one(@guesses)
       input = assemble_values
       return input
     end
@@ -129,7 +159,7 @@ module Mastermind
   class Guesstimate
 
     def initialize()
-      @value = 1
+      @value = 0
       @movable = true
       @frozen = false
       @set = false
