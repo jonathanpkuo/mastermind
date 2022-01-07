@@ -64,6 +64,22 @@ module Mastermind
       return temp
     end
 
+    def frozen_state # Takes frozen state from guess objects and assembles them in an array for easy reading.
+      temp = []
+      for x in @guesses do
+        temp.push(x.frozen?)
+      end
+      return temp
+    end
+
+    def movable_state # Takes movable state from guess objects and assembles them in an array for easy reading.
+      temp = []
+      for x in @guesses do
+        temp.push(x.can_move?)
+      end
+      return temp
+    end
+
     def show_guesses()
       for x in @guesses do
         puts x
