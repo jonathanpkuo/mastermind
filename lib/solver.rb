@@ -122,6 +122,7 @@ module Mastermind
           holding_cells[array.length - (1 + i)] = array.delete_at(array.length - (1 + i))
         end
         i += 1
+        # puts holding_cells
       end
       # Conducts the shift with the remaining values.
       array[(array.length - 1)] = array.shift()
@@ -130,6 +131,7 @@ module Mastermind
       while holding_cells.any? { |x| x != nil} do
         if holding_cells[j] != nil
           array.insert(j, holding_cells[j])
+          holding_cells[j] = nil # fixes issue causing an endless loop as the holding cell value is not reset
         end
         j += 1
       end
