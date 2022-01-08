@@ -15,8 +15,8 @@ module Mastermind
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
       # Check if number of correct is greater than the number currently "frozen (non-incrementing)"
-      puts num_cor
-      puts count_guesses("frozen")
+      puts "Number of correct is #{num_cor}"
+      puts "Number frozen is #{count_guesses("frozen")}"
       if num_cor > count_guesses("frozen")
         # Freeze the first non-frozen entity.
         @guesses.each do |x| 
@@ -138,7 +138,7 @@ module Mastermind
           holding_cells[array.length - (1 + i)] = array.delete_at(array.length - (1 + i))
         end
         i += 1
-        # puts holding_cells
+        puts holding_cells # print holding cells to check what is going on (debug purposes only)
       end
       # Conducts the shift with the remaining values.
       array[(array.length - 1)] = array.shift()
