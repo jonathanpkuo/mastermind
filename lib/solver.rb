@@ -15,8 +15,8 @@ module Mastermind
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
       # Check if number of correct is greater than the number currently "frozen (non-incrementing)"
-      puts "Number of correct is #{num_cor}"
-      puts "Number frozen is #{count_guesses("frozen")}"
+      # puts "Number of correct is #{num_cor}"
+      # puts "Number frozen is #{count_guesses("frozen")}"
       if num_cor > count_guesses("frozen")
         # Freeze the first non-frozen entity.
         @guesses.each do |x| 
@@ -26,6 +26,7 @@ module Mastermind
           end
         end
       end
+      # Checks if number of correct placements is greater than number currently locked and not movable
       if pla_cor > count_guesses("confirmed")
         # Lock the first non-confirmed entity. (Lowest value?)
         @guesses.each do |x|
@@ -152,7 +153,6 @@ module Mastermind
         j += 1
       end
       return array
-
     end
 
     #Do we need this?
