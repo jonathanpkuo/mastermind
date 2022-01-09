@@ -27,6 +27,7 @@ module Mastermind
         end
       end
       # Checks if number of correct placements is greater than number currently locked and not movable
+      # There is an issue with this portion, causing it to unlock values that should remain locked.
       if pla_cor > count_guesses("confirmed")
         # Lock the first non-confirmed entity. (Lowest value?)
         @guesses.each do |x|
