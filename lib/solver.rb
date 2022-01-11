@@ -224,7 +224,7 @@ module Mastermind
     end
 
     def move_unlock
-      @moveable = true
+      @movable = true
     end
   
     def frozen?()
