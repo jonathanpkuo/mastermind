@@ -47,6 +47,7 @@ module Mastermind
         end
       elsif pla_cor < count_guesses("unmovable")
         # Unlock the latest non-movable entity. (Highest value?)
+        puts "Places correct was less than the number of unmovable pieces"
         @guesses.reverse_each do |x|
           if x.can_move? == false
             # x.flip_lock
@@ -143,6 +144,7 @@ module Mastermind
 
     end
 
+    # Issue 2022-01-11 : shift_one will sometimes randomly delete an entry! 
     def shift_one(array)
       holding_cells = Array.new(4)
       i = 0
@@ -150,14 +152,14 @@ module Mastermind
       while array.any? { |x| x.can_move? == false } do
         array.each do |x|
           if x.can_move? == false 
-            puts x
+            # puts x
           end
         end
         if array[array.length - (1 + i)].can_move? == false
           holding_cells[array.length - (1 + i)] = array.delete_at(array.length - (1 + i))
         end
         i += 1
-        puts holding_cells # print holding cells to check what is going on (debug purposes only)
+        # puts holding_cells # print holding cells to check what is going on (debug purposes only)
       end
       # Conducts the shift with the remaining values.
       array[(array.length - 1)] = array.shift()
