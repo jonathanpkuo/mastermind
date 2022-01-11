@@ -14,6 +14,13 @@ module Mastermind
       temp = feedback.gsub(/[^\s\d]/, "").split
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
+      # Debug printouts
+      puts temp
+      puts "num_cor is #{num_cor}"
+      puts "pla_cor is #{pla_cor}"
+      puts "num frozen is #{count_guesses('frozen')}"
+      puts "num unmovable is #{count_guesses('movable')}"
+      puts "movable state: #{movable_state}"
       # Check if number of correct is greater than the number currently "frozen (non-incrementing)"
       # puts "Number of correct is #{num_cor}"
       # puts "Number frozen is #{count_guesses("frozen")}"
@@ -29,19 +36,19 @@ module Mastermind
       # Checks if number of correct placements is greater than number currently locked and not movable
       # There is an issue with this portion, causing it to unlock values that should remain locked.
       # New issue is that it is not locking when it should lock.
-      if pla_cor > count_guesses("movable")
+      if pla_cor > count_guesses("unmovable")
         # Lock the first non-movable entity. (Lowest value?)
         @guesses.each do |x|
-          if x.can_move? != true
+          if x.can_move? == true
             # x.flip_lock
             x.move_lock
             break
           end
         end
-      elsif pla_cor < count_guesses("movable")
+      elsif pla_cor < count_guesses("unmovable")
         # Unlock the latest non-movable entity. (Highest value?)
         @guesses.reverse_each do |x|
-          if x.can_move? == true
+          if x.can_move? == false
             # x.flip_lock
             x.move_unlock
             break
@@ -54,6 +61,8 @@ module Mastermind
           x.increment
         end
       end
+      # Debug printout to check movable state post processing
+      puts "movable state (post locks) #{movable_state}"
       # Shift one
       @guesses = shift_one(@guesses)
       input = assemble_values
@@ -90,6 +99,7 @@ module Mastermind
         puts x
         puts "@frozen is: #{x.frozen?}"
         puts "@movable is: #{x.can_move?}"
+        puts "Unmovable is: #{x.unmoving?}"
         puts "@value is: #{x.value?}"
       end
     end
@@ -108,6 +118,10 @@ module Mastermind
           end
         when "confirmed"
           if x.confirmed? == true
+            counter += 1
+          end
+        when "unmovable"
+          if x.can_move? == false
             counter += 1
           end
         end
@@ -225,6 +239,10 @@ module Mastermind
 
     def can_move?()
       return @movable
+    end
+
+    def unmoving?
+      return !@movable
     end
 
     def value?
