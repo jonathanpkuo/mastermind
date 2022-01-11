@@ -28,19 +28,22 @@ module Mastermind
       end
       # Checks if number of correct placements is greater than number currently locked and not movable
       # There is an issue with this portion, causing it to unlock values that should remain locked.
-      if pla_cor > count_guesses("confirmed")
-        # Lock the first non-confirmed entity. (Lowest value?)
+      # New issue is that it is not locking when it should lock.
+      if pla_cor > count_guesses("movable")
+        # Lock the first non-movable entity. (Lowest value?)
         @guesses.each do |x|
-          if x.confirmed? != true
-            x.flip_lock
+          if x.can_move? != true
+            # x.flip_lock
+            x.move_lock
             break
           end
         end
-      elsif pla_cor < count_guesses("confirmed")
-        # Unlock the latest non-confirmed entity. (Highest value?)
+      elsif pla_cor < count_guesses("movable")
+        # Unlock the latest non-movable entity. (Highest value?)
         @guesses.reverse_each do |x|
-          if x.confirmed? == true
-            x.flip_lock
+          if x.can_move? == true
+            # x.flip_lock
+            x.move_unlock
             break
           end
         end
@@ -100,7 +103,7 @@ module Mastermind
             counter += 1
           end
         when "movable"
-          if x.movable? == true
+          if x.can_move? == true
             counter += 1
           end
         when "confirmed"
@@ -198,6 +201,14 @@ module Mastermind
       else 
         @movable = true
       end
+    end
+
+    def move_lock
+      @movable = false
+    end
+
+    def move_unlock
+      @moveable = true
     end
   
     def frozen?()
