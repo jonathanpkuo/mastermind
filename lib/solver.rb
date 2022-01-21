@@ -6,6 +6,10 @@ module Mastermind
     end
 
     def solution_algo(turn, feedback)
+      if @guesses.length < 4
+        puts "FATAL ERROR"
+        break
+      end
       if turn == 0
         input = assemble_values
         return input
