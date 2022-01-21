@@ -70,7 +70,6 @@ module Mastermind
       return input
     end
     
-    #TESTING CONTROLS
     def assemble_values # Takes values from the guess objects and assembles them in an array for ease of use.
       temp = []
       for x in @guesses do
@@ -79,6 +78,7 @@ module Mastermind
       return temp
     end
 
+        #TESTING CONTROLS
     def frozen_state # Takes frozen state from guess objects and assembles them in an array for easy reading.
       temp = []
       for x in @guesses do
@@ -160,6 +160,10 @@ module Mastermind
         end
         i += 1
         # puts holding_cells # print holding cells to check what is going on (debug purposes only)
+      end
+      # Debug prints
+      holding_cells.each_with_index do |x, index|
+        puts "#{index} is #{x}."
       end
       # Conducts the shift with the remaining values.
       array[(array.length - 1)] = array.shift()
