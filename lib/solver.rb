@@ -8,7 +8,6 @@ module Mastermind
     def solution_algo(turn, feedback)
       if @guesses.length < 4
         puts "FATAL ERROR"
-        break
       end
       if turn == 0
         input = assemble_values
@@ -69,7 +68,8 @@ module Mastermind
       # Debug printout to check movable state post processing
       puts "movable state (post locks) #{movable_state}"
       # Shift one
-      @guesses = shift_one(@guesses)
+      # @guesses = shift_one(@guesses)
+      shift_values
       input = assemble_values
       return input
     end
@@ -143,44 +143,49 @@ module Mastermind
       when "increment"
         @guesses[index].increment
       when "shift"
-        shift_one(@guesses)
+        # shift_one(@guesses)
+        shift_values
       end
 
     end
 
-    # Issue 2022-01-11 : shift_one will sometimes randomly delete an entry! 
-    def shift_one(array)
-      holding_cells = Array.new(4)
+    # Simple array shift to serve as basis for more complex version
+    # Completed and working as of Tue 25 Jan 2022 15:00
+    def simple_shift(array)
       i = 0
-      #temporarily removes any frozen values
-      while array.any? { |x| x.can_move? == false } do
-        array.each do |x|
-          if x.can_move? == false 
-            # puts x
-          end
-        end
-        if array[array.length - (1 + i)].can_move? == false
-          holding_cells[array.length - (1 + i)] = array.delete_at(array.length - (1 + i))
-        end
+      while i < (array.length - 1) do
+        array[i], array[i + 1] = array[i + 1], array[i]
         i += 1
-        # puts holding_cells # print holding cells to check what is going on (debug purposes only)
-      end
-      # Debug prints
-      holding_cells.each_with_index do |x, index|
-        puts "#{index} is #{x}."
-      end
-      # Conducts the shift with the remaining values.
-      array[(array.length - 1)] = array.shift()
-      # moves values from temporary array back to main array.
-      j = 0
-      while holding_cells.any? { |x| x != nil} do
-        if holding_cells[j] != nil
-          array.insert(j, holding_cells[j])
-          holding_cells[j] = nil # fixes issue causing an endless loop as the holding cell value is not reset
-        end
-        j += 1
       end
       return array
+    end
+
+    # New experimental shift function
+    # Take existing @guesses array, starting from index of 0, checks to see next shiftable index and swaps places.
+    def shift_values
+      i = 0
+      next_index = 0
+      while i < 3 do
+        # If the current index can be moved: Look for next movable and switch them.
+        if @guesses[i].can_move? == true
+          next_index = next_available(i) 
+          @guesses[i], @guesses[next_index] = @guesses[next_index], @guesses[i]
+          i += 1
+        else
+          i += 1
+        end
+      end
+    end
+
+    # Function to find the next available (movable) index
+    def next_available(current_index)
+      i = current_index
+      while i < 3 do
+        if @guesses[i+1].can_move? == true
+          return (i+1)
+        end
+        i += 1
+      end
     end
 
     #Do we need this?
