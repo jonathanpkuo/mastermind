@@ -6,9 +6,6 @@ module Mastermind
     end
 
     def solution_algo(turn, feedback)
-      if @guesses.length < 4
-        puts "FATAL ERROR"
-      end
       if turn == 0
         input = assemble_values
         return input
@@ -17,13 +14,6 @@ module Mastermind
       temp = feedback.gsub(/[^\s\d]/, "").split
       num_cor = temp[0].to_i
       pla_cor = temp[1].to_i
-      # Debug printouts
-      puts temp
-      puts "num_cor is #{num_cor}"
-      puts "pla_cor is #{pla_cor}"
-      puts "num frozen is #{count_guesses('frozen')}"
-      puts "num unmovable is #{count_guesses('movable')}"
-      puts "movable state: #{movable_state}"
       # Check if number of correct is greater than the number currently "frozen (non-incrementing)"
       # puts "Number of correct is #{num_cor}"
       # puts "Number frozen is #{count_guesses("frozen")}"
@@ -50,7 +40,6 @@ module Mastermind
         end
       elsif pla_cor < count_guesses("unmovable")
         # Unlock the latest non-movable entity. (Highest value?)
-        puts "Places correct was less than the number of unmovable pieces"
         @guesses.reverse_each do |x|
           if x.can_move? == false
             # x.flip_lock
