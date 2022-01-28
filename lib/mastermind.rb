@@ -105,4 +105,4 @@ module Mastermind
   end
 end
 
-# game = Mastermind::Game.new()
+game = Mastermind::Game.new()
