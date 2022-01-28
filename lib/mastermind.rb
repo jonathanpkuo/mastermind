@@ -72,7 +72,7 @@ module Mastermind
         @is_over = feedback.bump_data(@@turn, @code, input)
         if @is_over == true
           draw_board()
-          main_menu()
+          exit
         end
         # Repeat.
         @@turn += 1
@@ -81,7 +81,7 @@ module Mastermind
           @is_over == true
           puts "Game Over: You Lose!"
           draw_board()
-          main_menu()
+          exit
         end
       end
 
