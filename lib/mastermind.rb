@@ -42,18 +42,29 @@ module Mastermind
 
     # Mode 0 = normal single player (AI picks code), 1 = pvp (player picks code), 2 = pve (player picks code - not implemented yet)
     def game_play_loop(mode = 0)
-      # if-else set calls code generation as needed.
-      if mode == 0
+      case mode
+      when 0
         @code = secret.populate_secret(@code)
-      elsif mode == 1
+      when 1, 2
         @code = @input_manager.input_loop([], mode)
       end
+      
       while ( @is_over == false && @@turn < 10 ) do
         puts "Turn: #{@@turn + 1}"
         puts "Game over!" if @is_over == true
         draw_board()
         # Take input
-        input = input_manager.input_loop([])
+        case mode
+        when 0, 1
+          input = @input_manager.input_loop([])
+        when 2
+          puts "pve computer input"
+          if @@turn == 0
+            input = @solver.solution_algo(@@turn, "0 0")
+          else
+            input = @solver.solution_algo(@@turn, @feedback.feedback[(@@turn - 1)])
+          end
+        end
         # Check and formulate responses
         game_board.board[@@turn] = input
         @is_over = feedback.bump_data(@@turn, @code, input)
