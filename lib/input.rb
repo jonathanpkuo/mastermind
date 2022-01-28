@@ -11,8 +11,9 @@ module Mastermind
       when 2 
         return 1
       when 3
-        puts "Mode incomplete, please select another option."
-        menu_input()
+        # puts "Mode incomplete, please select another option."
+        # menu_input()
+        return 2
       when 4
         exit
       else
