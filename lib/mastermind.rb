@@ -34,21 +34,23 @@ module Mastermind
       puts "Select game mode : "
       puts "(1) - Single Player"
       puts "(2) - PvP"
-      puts "(3) - Single Player (Player is code master) *WIP*"
-      puts "(4) - Exit"
+      puts "(3) - Single Player (Player is code master)"
+      puts "(4) - Computer vs Computer"
+      puts "(5) - Exit"
       # directly calls the corresponding mode
       game_play_loop(@input_manager.menu_input)
     end
 
-    # Mode 0 = normal single player (AI picks code), 1 = pvp (player picks code), 2 = pve (player picks code - not implemented yet)
+    # Mode 0 = normal single player (AI picks code), 1 = pvp (player picks code), 2 = pve, 3 = computer picks and computer solves
     def game_play_loop(mode = 0)
+      # Takes mode and determines who generates code
       case mode
-      when 0
+      when 0, 3
         @code = secret.populate_secret(@code)
       when 1, 2
         @code = @input_manager.input_loop([], mode)
       end
-      
+
       while ( @is_over == false && @@turn < 10 ) do
         puts "Turn: #{@@turn + 1}"
         puts "Game over!" if @is_over == true
@@ -57,7 +59,7 @@ module Mastermind
         case mode
         when 0, 1
           input = @input_manager.input_loop([])
-        when 2
+        when 2, 3
           puts "pve computer input"
           if @@turn == 0
             input = @solver.solution_algo(@@turn, "0 0")

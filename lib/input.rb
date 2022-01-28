@@ -15,6 +15,8 @@ module Mastermind
         # menu_input()
         return 2
       when 4
+        return 3
+      when 5
         exit
       else
         puts "Invalid entry"
