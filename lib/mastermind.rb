@@ -60,7 +60,7 @@ module Mastermind
         when 0, 1
           input = @input_manager.input_loop([])
         when 2, 3
-          puts "pve computer input"
+          # puts "pve computer input"
           if @@turn == 0
             input = @solver.solution_algo(@@turn, "0 0")
           else
