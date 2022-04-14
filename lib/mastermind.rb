@@ -25,7 +25,7 @@ module Mastermind
       @input_manager = Input_Manager.new()
       @solver = Solver.new()
       @is_over = false
-      @@turn = 0
+      @turn = 0
       @code = []
       main_menu()
     end
@@ -61,23 +61,23 @@ module Mastermind
           input = @input_manager.input_loop([])
         when 2, 3
           # puts "pve computer input"
-          if @@turn == 0
+          if @turn == 0
             input = @solver.solution_algo(@@turn, "0 0")
           else
             input = @solver.solution_algo(@@turn, @feedback.feedback[(@@turn - 1)])
           end
         end
         # Check and formulate responses
-        game_board.board[@@turn] = input
+        game_board.board[@turn] = input
         @is_over = feedback.bump_data(@@turn, @code, input)
         if @is_over == true
           draw_board()
           exit
         end
         # Repeat.
-        @@turn += 1
+        @turn += 1
         # Turn > 9 = lose; successfully guess = win.
-        if @@turn > 9 
+        if @turn > 9 
           @is_over == true
           puts "Game Over: You Lose!"
           draw_board()
